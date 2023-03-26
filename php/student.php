@@ -24,51 +24,52 @@ if(isset($_POST["Submit"])){
     $Relation = ($_POST["Relation"]);
     $PhoneNumber = ($_POST["Pnumber"]);
 
+    //valid
 
     // if(empty($Adm)){
-    //     $_SESSION["ErrorMessage"] ="Admissiom Can't Be Empty";
+    //     $_SESSION["ErrorMessage"] ="Admission Can't Be Empty";
     //     Redirect_to("student.php");
     // }
-    // elseif(empty($FirstName)){
-    //     $_SESSION["ErrorMessage"] ="FirstName Can't Be Empty";
-    // Redirect_to("student.php");
-    // }elseif(empty($MiddleName)){
-    //     $_SESSION["ErrorMessage"] ="MiddleName Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }elseif(empty($LastName)){
-    //     $_SESSION["ErrorMessage"] ="LastName Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($Birth)){
-    //     $_SESSION["ErrorMessage"] ="Date of Birth Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($ID)){
-    //     $_SESSION["ErrorMessage"] ="ID Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($ender)){
-    //     $_SESSION["ErrorMessage"] ="Gender Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($Country)){
-    //     $_SESSION["ErrorMessage"] ="Country Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($County)){
-    //     $_SESSION["ErrorMessage"] ="County Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($DOA)){
-    //     $_SESSION["ErrorMessage"] ="Date of Amission Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($Kin)){
-    //     $_SESSION["ErrorMessage"] ="Name of Kin Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($Relation)){
-    //     $_SESSION["ErrorMessage"] ="Relation  Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }  elseif(empty($PhoneNumber)){
-    //     $_SESSION["ErrorMessage"] ="PhoneNumber Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }else{
+    if(empty($FirstName)){
+        $_SESSION["ErrorMessage"] ="FirstName Can't Be Empty";
+    Redirect_to("student.php");
+    }elseif(empty($MiddleName)){
+        $_SESSION["ErrorMessage"] ="MiddleName Can't Be Empty";
+        Redirect_to("student.php");
+    }elseif(empty($LastName)){
+        $_SESSION["ErrorMessage"] ="LastName Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($Birth)){
+        $_SESSION["ErrorMessage"] ="Date of Birth Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($ID)){
+        $_SESSION["ErrorMessage"] ="ID Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($Gender)){
+        $_SESSION["ErrorMessage"] ="Gender Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($Country)){
+        $_SESSION["ErrorMessage"] ="Country Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($County)){
+        $_SESSION["ErrorMessage"] ="County Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($DOA)){
+        $_SESSION["ErrorMessage"] ="Date of Amission Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($Kin)){
+        $_SESSION["ErrorMessage"] ="Name of Kin Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($Relation)){
+        $_SESSION["ErrorMessage"] ="Relation  Can't Be Empty";
+        Redirect_to("student.php");
+    }  elseif(empty($PhoneNumber)){
+        $_SESSION["ErrorMessage"] ="PhoneNumber Can't Be Empty";
+        Redirect_to("student.php");
+    }else{
         global $con;
 
-        $Query = "INSERT INTO students(Admission_No, FirstName, MiddleName, LastName, DOB, Identification, Gender, Country, County, Next_of_kin_name,Relation, Number_of_guardian, Dat_of_admission)  VALUES ('$Adm', '$FirstName', '$MiddleName', '$LastName', '$Birth', '$ID', '$Gender', '$Country', '$County', '$Kin', '$Relation', '$PhoneNumber', '$DOA')";
+        $Query = "INSERT INTO students(Admission_No,FirstName,MiddleName,LastName,DOB,Identification,Gender,Country,County,Next_of_kin_name,Relation, Number_of_guardian, Dat_of_admission)  VALUES ('$Adm', '$FirstName', '$MiddleName', '$LastName', '$Birth', '$ID', '$Gender', '$Country', '$County', '$Kin', '$Relation', '$PhoneNumber', '$DOA')";
         $Execute = mysqli_query($con, $Query);
 
         if($Execute){
@@ -81,7 +82,7 @@ if(isset($_POST["Submit"])){
     }
    
 
-
+}
 
 
 
@@ -105,7 +106,9 @@ if(isset($_POST["Submit"])){
                 
                 <div class="card">
                     <h5 class="text-center mb-5">Add The New Student</h5>
-                    <form class="form-card" onsubmit="event.preventDefault()">
+                    <div><?php echo Message();
+            echo SuccessMessage(); ?></div>
+                    <form  action="student.php" method="post" class="form-card">
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Admission Number<span class="text-danger"> *</span></label> <input type="number" id="adm" name="Adm" placeholder="Enter the Admission Number" > </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" placeholder="Enter your first name" > </div>
@@ -127,6 +130,7 @@ if(isset($_POST["Submit"])){
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Phone Number of Guardian<span class="text-danger"> *</span></label> <input type="phone number" id="Pnumber" name="Pnumber" placeholder="" > </div>
                         </div>
+                        
                         <div class="row justify-content-end">
                             <div class="form-group col-sm-6"> <input class ="btn btn-success btn-lock" type="submit" name = "Submit" value ="Add New student"> </div>
                         </div>
