@@ -24,60 +24,60 @@ if(isset($_POST["Submit"])){
     $Relation = ($_POST["Relation"]);
     $PhoneNumber = ($_POST["Pnumber"]);
 
-    //valid
+    //validation
 
-    // if(empty($Adm)){
-    //     $_SESSION["ErrorMessage"] ="Admission Can't Be Empty";
-    //     Redirect_to("student.php");
-    // }
-    if(empty($FirstName)){
+    if(empty($Adm)){
+        $_SESSION["ErrorMessage"] ="Admission Can't Be Empty";
+        Redirect_to("EditStudents.php");
+    }
+    elseif(empty($FirstName)){
         $_SESSION["ErrorMessage"] ="FirstName Can't Be Empty";
-    Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }elseif(empty($MiddleName)){
         $_SESSION["ErrorMessage"] ="MiddleName Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }elseif(empty($LastName)){
         $_SESSION["ErrorMessage"] ="LastName Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($Birth)){
         $_SESSION["ErrorMessage"] ="Date of Birth Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($ID)){
         $_SESSION["ErrorMessage"] ="ID Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($Gender)){
         $_SESSION["ErrorMessage"] ="Gender Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($Country)){
         $_SESSION["ErrorMessage"] ="Country Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($County)){
         $_SESSION["ErrorMessage"] ="County Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($DOA)){
         $_SESSION["ErrorMessage"] ="Date of Amission Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($Kin)){
         $_SESSION["ErrorMessage"] ="Name of Kin Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($Relation)){
         $_SESSION["ErrorMessage"] ="Relation  Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }  elseif(empty($PhoneNumber)){
         $_SESSION["ErrorMessage"] ="PhoneNumber Can't Be Empty";
-        Redirect_to("student.php");
+        Redirect_to("EditStudents.php");
     }else{
         global $con;
-
-        $Query = "INSERT INTO students(Admission_No,FirstName,MiddleName,LastName,DOB,Identification,Gender,Country,County,Next_of_kin_name,Relation, Number_of_guardian, Dat_of_admission)  VALUES ('$Adm', '$FirstName', '$MiddleName', '$LastName', '$Birth', '$ID', '$Gender', '$Country', '$County', '$Kin', '$Relation', '$PhoneNumber', '$DOA')";
+        $EditFromURL = $_GET['Edit'];
+        $Query = "UPDATE  students SET  FirstName='$FirstName', MiddleName='$MiddleName',LastName='$LastName',DOB='$Dob',Identification='$ID',Gender='$Gender,Country='$Country,County-'$County,Next_of_kin='$Kin,Relation=$Rel,Number_of_guardian='$PhoneNumber,Dat_of_admission='$DOA' WHERE Admission_No = '$EditFromURL' ";
         $Execute = mysqli_query($con, $Query);
 
         if($Execute){
-            $_SESSION["SuccessMessage"] = "Student Added Successfully";
-        Redirect_to("student.php");
+            $_SESSION["SuccessMessage"] = "Student Records Updated Successfully";
+        Redirect_to("ViewS.php");
         }else{
             $_SESSION["ErrorMessage"] ="Something Went Wrong...Try Again";
-            Redirect_to("student.php");
+            Redirect_to("EditStudents.php");
         }
     }
    
@@ -110,13 +110,10 @@ if(isset($_POST["Submit"])){
             echo SuccessMessage(); ?></div>
 
             <?php
+            global $con;
             $searchQueryParameter = $_GET['Edit'];
-            $EQuery = "SELECT * FROM students WHERE id = '$searchQueryParameter'";
+            $EQuery = "SELECT * FROM students WHERE Admission_No = '$searchQueryParameter'";
             $ExecuteQuery = mysqli_query($con, $EQuery);
-            if(!$ExecuteQuery){
-                echo mysqli_connect_error($con);
-            }
-            else{
                 while($DataRows = mysqli_fetch_array($ExecuteQuery)){
                     $Admupdate = $DataRows["Admission_No"];
                     $FNameupdate = $DataRows["FirstName"];
@@ -132,15 +129,15 @@ if(isset($_POST["Submit"])){
                     $Mobile = $DataRows["Number_of_guardian"];
                     $DOA = $DataRows["Dat_of_admission"];
                 }
-            }
+            
             
 
 
 
 ?>
-                    <form  action="student.php" method="post" class="form-card">
+                    <form  action="EditStudents.php?Edit=<?php echo $searchQueryParameter; ?>" method="post" class="form-card">
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Admission Number<span class="text-danger"> *</span></label> <input type="number" id="adm" name="Adm" placeholder="Enter the Admission Number" value = "<?php echo $Adm; ?>" > </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Admission Number<span class="text-danger"> *</span></label> <input type="number" id="adm" name="Adm" placeholder="Enter the Admission Number" value = "<?php echo $Admupdate; ?>" > </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" placeholder="Enter your first name" value = "<?php echo $FNameupdate; ?>"> </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Middle name<span class="text-danger"> *</span></label> <input type="text" id="mname" name="mname" placeholder="Enter your middile name" value = "<?php  echo $MName; ?>" > </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label> <input type="text" id="lname" name="lname" placeholder="Enter your last name" value = "<?php echo $LName; ?>" > </div>
@@ -162,7 +159,7 @@ if(isset($_POST["Submit"])){
                         </div>
                         
                         <div class="row justify-content-end">
-                            <div class="form-group col-sm-6"> <input class ="btn btn-success btn-lock" type="submit" name = "Submit" value ="Add New student"> </div>
+                            <div class="form-group col-sm-6"> <input class ="btn btn-success btn-lock" type="submit" name = "Submit" value ="Edit Student Records"> </div>
                         </div>
                     </form>
                 </div>

@@ -68,9 +68,9 @@ require_once("functions.php");
     <td><?php echo $Gender; ?></td>
     <td><?php echo $Mobile; ?></td>
     <td><?php echo $Deg; ?></td>
-    <td> <a href="../php/EditStudents.php?Edit=<?php echo $SrNo; ?>">
+    <td> <a href="../php/EditTeacher.php?Edit=<?php echo $Staff_id; ?>">
 <span class ="btn btn-warning">Edit</span></a> </td>
-    <td> <a href="../php/DeleteStudents.php?Edit=<?php echo $SrNo; ?>">
+    <td> <a href="../php/DeleteTeacher.php?Edit=<?php echo $Staff_id; ?>">
     <span class ="btn btn-danger">Delete</span> </a> </td>
 </tr>
 

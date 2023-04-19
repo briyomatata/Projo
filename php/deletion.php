@@ -24,7 +24,7 @@ if(isset($_POST["Submit"])){
     $Relation = ($_POST["Relation"]);
     $PhoneNumber = ($_POST["Pnumber"]);
 
-    //valid
+    //validation
 
     if(empty($Adm)){
         $_SESSION["ErrorMessage"] ="Admission Can't Be Empty";
@@ -68,12 +68,12 @@ if(isset($_POST["Submit"])){
         Redirect_to("EditStudents.php");
     }else{
         global $con;
-        $EditFromUrl = $_GET['Edit'];
-        $Query = "UPDATE  students SET Admission_No='$Adm', FirstName='$FirstName', MiddleName='$MiddleName',LastName='$LastName',DOB='$Dob',Identification='$ID',Gender='$Gender,Country='$Country,County-'$County,Next_of_kin='$Kin,Relation=$Rel,Number_of_guardian='$PhoneNumber,Dat_of_admission='$DOA' WHERE Admission_No = '$EditFromUrl' ";
+        $DeleteFromURL = $_GET['Delete'];
+        $Query = "DELETE FROM  students WHERE Admission_No = '$DeleteFromURL'";
         $Execute = mysqli_query($con, $Query);
 
         if($Execute){
-            $_SESSION["SuccessMessage"] = "Student Records Updated Successfully";
+            $_SESSION["SuccessMessage"] = "Student Records Deleted Successfully";
         Redirect_to("ViewS.php");
         }else{
             $_SESSION["ErrorMessage"] ="Something Went Wrong...Try Again";
@@ -105,19 +105,15 @@ if(isset($_POST["Submit"])){
             <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
                 
                 <div class="card">
-                    <h5 class="text-center mb-5">Edit Student Records</h5>
+                    <h5 class="text-center mb-5">Delete Student Records</h5>
                     <div><?php echo Message();
             echo SuccessMessage(); ?></div>
 
             <?php
             global $con;
-            $searchQueryParameter = $_GET['Edit'];
+            $searchQueryParameter = $_GET['Delete'];
             $EQuery = "SELECT * FROM students WHERE Admission_No = '$searchQueryParameter'";
             $ExecuteQuery = mysqli_query($con, $EQuery);
-            if(!$ExecuteQuery){
-                echo mysqli_connect_error($con);
-            }
-            else{
                 while($DataRows = mysqli_fetch_array($ExecuteQuery)){
                     $Admupdate = $DataRows["Admission_No"];
                     $FNameupdate = $DataRows["FirstName"];
@@ -133,15 +129,15 @@ if(isset($_POST["Submit"])){
                     $Mobile = $DataRows["Number_of_guardian"];
                     $DOA = $DataRows["Dat_of_admission"];
                 }
-            }
+            
             
 
 
 
 ?>
-                    <form  action="EditStudents.php?Edit=<?php echo $searchQueryParameter; ?>" method="post" class="form-card">
+                    <form  action="deletion.php?Delete=<?php echo $searchQueryParameter; ?>" method="post" class="form-card">
                         <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Admission Number<span class="text-danger"> *</span></label> <input type="number" id="adm" name="Adm" placeholder="Enter the Admission Number" value = "<?php echo $Adm; ?>" > </div>
+                            <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Admission Number<span class="text-danger"> *</span></label> <input type="number" id="adm" name="Adm" placeholder="Enter the Admission Number" value = "<?php echo $Admupdate; ?>" > </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" placeholder="Enter your first name" value = "<?php echo $FNameupdate; ?>"> </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Middle name<span class="text-danger"> *</span></label> <input type="text" id="mname" name="mname" placeholder="Enter your middile name" value = "<?php  echo $MName; ?>" > </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Last name<span class="text-danger"> *</span></label> <input type="text" id="lname" name="lname" placeholder="Enter your last name" value = "<?php echo $LName; ?>" > </div>
@@ -163,7 +159,7 @@ if(isset($_POST["Submit"])){
                         </div>
                         
                         <div class="row justify-content-end">
-                            <div class="form-group col-sm-6"> <input class ="btn btn-success btn-lock" type="submit" name = "Submit" value ="Edit Student Records"> </div>
+                            <div class="form-group col-sm-6"> <input class ="btn btn-danger btn-lock" type="submit" name = "Delete" value ="Delete Student Records"> </div>
                         </div>
                     </form>
                 </div>

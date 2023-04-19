@@ -4,6 +4,11 @@ require_once("connection.php");
 require_once("sessions.php");
 require_once("functions.php");
 
+if(isset($_GET['Admission_No'])){
+    $Adm = $_GET['Admission_No'];
+    $delete = mysqli_query($con, "DELETE FROM `students`  WHERE `Admission_No` = '$Adm'");
+}
+
 
 ?>
 
@@ -14,12 +19,19 @@ require_once("functions.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Students</title>
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/view.css">
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" >
 </head>
 <body>
 
+<div class="table">
+    <div class="form">
+    <form class="form-inline">
+  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+  <a href="../php/add.php">ADD STUDENT</a>
+</form>
+    </div>
 <div class = "table-responsive">
             <table class ="table table-striped table-hover">
                 <tr>
@@ -83,9 +95,9 @@ require_once("functions.php");
     <td><?php echo $Rel; ?></td>
     <td><?php echo $Mobile; ?></td>
     <td><?php echo $DOA; ?></td>
-    <td> <a href="../php/EditStudents.php?Edit=<?php echo $SrNo; ?>">
+    <td> <a href="../php/EditStudents.php?Edit=<?php echo $Adm; ?>">
 <span class ="btn btn-warning">Edit</span></a> </td>
-    <td> <a href="../php/DeleteStudents.php?Edit=<?php echo $SrNo; ?>">
+    <td> <a href="../php/deletion.php?Edit=<?php echo $Adm; ?>">
     <span class ="btn btn-danger">Delete</span> </a> </td>
     
 </tr>
@@ -93,6 +105,7 @@ require_once("functions.php");
 <?php } ?>
             </table>
         </div>
+</div>
     
 </body>
 </html>

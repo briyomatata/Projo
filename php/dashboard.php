@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/student.css">
     <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" >
 </head>
@@ -29,9 +30,8 @@
         </div>
 
         <div class="col-sm-10"> 
-           
-            <h1 class ="headings">  Admin Dashboard</h1>
-    
+      
+
         </div>
 
         
