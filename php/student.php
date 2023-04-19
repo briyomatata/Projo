@@ -28,9 +28,9 @@ require_once("functions.php");
 
 <?php
 
-require_once("board.php");
+// require_once("board.php");
 
-require_once("ViewS.php");
+// require_once("ViewS.php");
 
 
 ?>

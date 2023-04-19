@@ -74,7 +74,7 @@ if(isset($_POST["Submit"])){
 
         if($Execute){
             $_SESSION["SuccessMessage"] = "Student Added Successfully";
-        Redirect_to("ViewS.php");
+        Redirect_to("admin.php");
         }else{
             $_SESSION["ErrorMessage"] ="Something Went Wrong...Try Again";
             Redirect_to("student.php");
@@ -110,7 +110,7 @@ if(isset($_POST["Submit"])){
                     <h5 class="text-center mb-5">Add  New Student</h5>
                     <div><?php echo Message();
             echo SuccessMessage(); ?></div>
-                    <form  action="student.php" method="post" class="form-card">
+                    <form  action="add.php" method="post" class="form-card">
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">Admission Number<span class="text-danger"> *</span></label> <input type="number" id="adm" name="Adm" placeholder="Enter the Admission Number" > </div>
                             <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3">First name<span class="text-danger"> *</span></label> <input type="text" id="fname" name="fname" placeholder="Enter your first name" > </div>

@@ -6,15 +6,15 @@ require_once("sessions.php");
 require_once("functions.php");
 
 
-if($_GET['Admission_no']){
-    $Adm = $_GET['Admission_no'];
+if($_GET['Delete']){
+    $Admission = $_GET['Delete'];
     
-    $sql = "DELETE FROM students WHERE Admission_no = '$Admi'";
+    $sql = "DELETE FROM students WHERE Admission_No = '$Admission'";
 
     $result = mysqli_query($con, $sql);
 
     if($result){
-        header("location:student.php");
+        header("location:ViewS.php");
     }
 }
 

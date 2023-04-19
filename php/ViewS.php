@@ -95,9 +95,9 @@ if(isset($_GET['Admission_No'])){
     <td><?php echo $Rel; ?></td>
     <td><?php echo $Mobile; ?></td>
     <td><?php echo $DOA; ?></td>
-    <td> <a href="../php/EditStudents.php?Edit=<?php echo $Adm; ?>">
+    <td> <a href="../php/update.php?Edit=<?php echo $Adm; ?>">
 <span class ="btn btn-warning">Edit</span></a> </td>
-    <td> <a href="../php/deletion.php?Edit=<?php echo $Adm; ?>">
+    <td> <a href="../php/delete.php?Delete=<?php echo $Adm; ?>">
     <span class ="btn btn-danger">Delete</span> </a> </td>
     
 </tr>
